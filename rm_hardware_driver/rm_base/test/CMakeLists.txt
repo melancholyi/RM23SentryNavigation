@@ -1,0 +1,43 @@
+find_package(ament_cmake_gtest REQUIRED)
+
+ament_add_gtest(test_processor_factory test_processor_factory.cpp)
+target_link_libraries(test_processor_factory ${PROJECT_NAME})
+
+ament_add_gtest(test_game_status_processor test_game_status_processor.cpp)
+target_link_libraries(test_game_status_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_game_result_processor test_game_result_processor.cpp)
+target_link_libraries(test_game_result_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_event_data_pocessor test_event_data_processor.cpp)
+target_link_libraries(test_event_data_pocessor ${PROJECT_NAME})
+
+ament_add_gtest(test_power_heat_data_processor test_power_heat_data_processor.cpp)
+target_link_libraries(test_power_heat_data_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_game_robot_pos_processor test_game_robot_pos_processor.cpp)
+target_link_libraries(test_game_robot_pos_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_robot_buff_processor test_robot_buff_processor.cpp)
+target_link_libraries(test_robot_buff_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_robot_hurt_processor test_robot_hurt_processor.cpp)
+target_link_libraries(test_robot_hurt_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_robot_shoot_data_processor test_robot_shoot_data_processor.cpp)
+target_link_libraries(test_robot_shoot_data_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_robot_bullet_remain_processor test_robot_bullet_remain_processor.cpp)
+target_link_libraries(test_robot_bullet_remain_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_robot_interactive_data_processor test_robot_interactive_data_processor.cpp)
+target_link_libraries(test_robot_interactive_data_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_game_robot_hp_processor test_game_robot_hp_processor.cpp)
+target_link_libraries(test_game_robot_hp_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_gimbal_imu_processor test_gimbal_imu_processor.cpp)
+target_link_libraries(test_gimbal_imu_processor ${PROJECT_NAME})
+
+ament_add_gtest(test_joint_state_processor test_joint_state_processor.cpp)
+target_link_libraries(test_joint_state_processor ${PROJECT_NAME})
