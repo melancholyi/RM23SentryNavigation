@@ -79,7 +79,7 @@ def generate_launch_description():
 
         DeclareLaunchArgument(
             'map',
-            default_value=os.path.join(bringup_dir, 'maps', 'jkb_outer.yaml'),
+            default_value=os.path.join(bringup_dir, 'maps', 'map_322.yaml'),
             description='Full path to map yaml file to load'),
 
         DeclareLaunchArgument(
@@ -100,7 +100,7 @@ def generate_launch_description():
             description='Whether to respawn if a node crashes. Applied when composition is disabled.'),
 
         DeclareLaunchArgument(
-            'log_level', default_value='info',
+            'log_level', default_value='error',
             description='log level'),
 
         Node(

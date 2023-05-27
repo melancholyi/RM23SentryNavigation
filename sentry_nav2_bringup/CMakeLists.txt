@@ -27,7 +27,7 @@ endif()
 # 2 ament_target_dependencies
 
 # 3 install
-install(DIRECTORY launch maps params rviz 
+install(DIRECTORY launch maps params 
   DESTINATION share/${PROJECT_NAME})
 
 

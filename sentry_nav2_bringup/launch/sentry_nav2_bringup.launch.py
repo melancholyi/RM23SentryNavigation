@@ -41,6 +41,12 @@ def generate_launch_description():
             get_package_share_directory('fast_lio'),'launch','mapping.launch.py')])
     )
 
+    # sentry description
+    dll_node = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('dll'), 'launch', 'dll.xml')])
+    )
+
     # gridmap
     pc2_gridmap_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
@@ -66,6 +72,15 @@ def generate_launch_description():
             get_package_share_directory('rm_base'), 'launch', 'rm_base.launch.py')])
     )
 
+    imu_node = Node(
+            package='imu_complementary_filter',
+            executable='complementary_filter_node',
+            name='imu_filter',
+            output='screen',
+            parameters=[os.path.join(get_package_share_directory('sentry_nav2_bringup'), 'params', 'imu_filter.yaml')],
+            remappings=[('/imu/data_raw', '/livox/imu')]
+    )
+
     return LaunchDescription([
         sentry_description,
         mid360_node,
@@ -73,8 +88,13 @@ def generate_launch_description():
         pc2_gridmap_node,
         cmd2chassis_node,
         serialcom_node,
+        imu_node
+        #dll_node,
         # wit_imu_node,
+        
+        
         # lio_sam_node,
+        
         
         # TimerAction(
         #     period=5.,

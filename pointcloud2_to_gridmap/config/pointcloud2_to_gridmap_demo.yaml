@@ -1,6 +1,6 @@
 pointcloud2_to_gridmap: 
   ros__parameters: 
-    pointcloud_topic: "/livox/lidar" 
+    pointcloud_topic: "/cloud_registered" 
     map_frame_id: "odom" 
     base_frame_id: "base_link" 
     integration_time: 1.0 

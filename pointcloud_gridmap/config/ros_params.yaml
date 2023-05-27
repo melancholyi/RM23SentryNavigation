@@ -1,9 +1,0 @@
-pointcloud_gridmap_node:
-  ros__parameters:
-    set_verbosity_to_debug: false
-    map_frame_id: "lidar_link"
-    map_layer_name: "elevation"
-    grid_map_topic_name: "grid_map"
-    point_cloud_topic_name: "livox/lidar"
-    parameter_path: "package://pointcloud_gridmap/config/gridmap_pcl_params.yaml"
-

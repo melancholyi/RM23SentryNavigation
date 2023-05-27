@@ -206,13 +206,13 @@ public:
             {
                cout << "\n\nSave resolution: " << req->resolution << endl;
                // down-sample and save corner cloud
-               RCLCPP_INFO(this->get_logger(),"########## 1 ##########");
+               // RCLCPP_INFO(this->get_logger(),"########## 1 ##########");
                downSizeFilterCorner.setInputCloud(globalCornerCloud);
                downSizeFilterCorner.setLeafSize(req->resolution, req->resolution, req->resolution);
                downSizeFilterCorner.filter(*globalCornerCloudDS);
                pcl::io::savePCDFileBinary(saveMapDirectory + "/CornerMap.pcd", *globalCornerCloudDS);
                // down-sample and save surf cloud
-               RCLCPP_INFO(this->get_logger(),"########## 2 ##########");
+               // RCLCPP_INFO(this->get_logger(),"########## 2 ##########");
                downSizeFilterSurf.setInputCloud(globalSurfCloud);
                downSizeFilterSurf.setLeafSize(req->resolution, req->resolution, req->resolution);
                downSizeFilterSurf.filter(*globalSurfCloudDS);
@@ -322,19 +322,19 @@ public:
             downsampleCurrentScan();
 
             scan2MapOptimization();
-            RCLCPP_INFO(this->get_logger(),"########## debug 1 ##########");
+            // RCLCPP_INFO(this->get_logger(),"########## debug 1 ##########");
 
             saveKeyFramesAndFactor();
-            RCLCPP_INFO(this->get_logger(),"########## debug 2 ##########");
+            // RCLCPP_INFO(this->get_logger(),"########## debug 2 ##########");
 
             correctPoses();
-            RCLCPP_INFO(this->get_logger(),"########## debug 3 ##########");
+            // RCLCPP_INFO(this->get_logger(),"########## debug 3 ##########");
 
             publishOdometry();
-            RCLCPP_INFO(this->get_logger(),"########## debug 4 ##########");
+            // RCLCPP_INFO(this->get_logger(),"########## debug 4 ##########");
 
             publishFrames();
-            RCLCPP_INFO(this->get_logger(),"########## debug 5 ##########");
+            // RCLCPP_INFO(this->get_logger(),"########## debug 5 ##########");
         }
     }
 
@@ -432,11 +432,11 @@ public:
             *globalSurfCloud   += *transformPointCloud(surfCloudKeyFrames[i],    &cloudKeyPoses6D->points[i]);
             cout << "\r" << std::flush << "Processing feature cloud " << i << " of " << cloudKeyPoses6D->size() << " ...";
         }
-        RCLCPP_INFO(this->get_logger(),"########## 3 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 3 ##########");
         downSizeFilterCorner.setInputCloud(globalCornerCloud);
         downSizeFilterCorner.filter(*globalCornerCloudDS);
         pcl::io::savePCDFileASCII(savePCDDirectory + "cloudCorner.pcd", *globalCornerCloudDS);
-        RCLCPP_INFO(this->get_logger(),"########## 4 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 4 ##########");
         downSizeFilterSurf.setInputCloud(globalSurfCloud);
         downSizeFilterSurf.filter(*globalSurfCloudDS);
         pcl::io::savePCDFileASCII(savePCDDirectory + "cloudSurf.pcd", *globalSurfCloudDS);
@@ -466,7 +466,7 @@ public:
         std::vector<float> pointSearchSqDisGlobalMap;
         // search near key frames to visualize
         mtx.lock();
-        RCLCPP_INFO(this->get_logger(),"########## 5 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 5 ##########");
         kdtreeGlobalMap->setInputCloud(cloudKeyPoses3D);
         kdtreeGlobalMap->radiusSearch(cloudKeyPoses3D->back(), globalMapVisualizationSearchRadius, pointSearchIndGlobalMap, pointSearchSqDisGlobalMap, 0);
         mtx.unlock();
@@ -476,7 +476,7 @@ public:
         // downsample near selected key frames
         pcl::VoxelGrid<PointType> downSizeFilterGlobalMapKeyPoses; // for global map visualization
         downSizeFilterGlobalMapKeyPoses.setLeafSize(globalMapVisualizationPoseDensity, globalMapVisualizationPoseDensity, globalMapVisualizationPoseDensity); // for global map visualization
-        RCLCPP_INFO(this->get_logger(),"########## 6 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 6 ##########");
         downSizeFilterGlobalMapKeyPoses.setInputCloud(globalMapKeyPoses);
         downSizeFilterGlobalMapKeyPoses.filter(*globalMapKeyPosesDS);
         for(auto& pt : globalMapKeyPosesDS->points)
@@ -496,7 +496,7 @@ public:
         // downsample visualized points
         pcl::VoxelGrid<PointType> downSizeFilterGlobalMapKeyFrames; // for global map visualization
         downSizeFilterGlobalMapKeyFrames.setLeafSize(globalMapVisualizationLeafSize, globalMapVisualizationLeafSize, globalMapVisualizationLeafSize); // for global map visualization
-        RCLCPP_INFO(this->get_logger(),"########## 7 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 7 ##########");
         downSizeFilterGlobalMapKeyFrames.setInputCloud(globalMapKeyFrames);
         downSizeFilterGlobalMapKeyFrames.filter(*globalMapKeyFramesDS);
         publishCloud(pubLaserCloudSurround, globalMapKeyFramesDS, timeLaserInfoStamp, odometryFrame);
@@ -633,7 +633,7 @@ public:
         // find the closest history key frame
         std::vector<int> pointSearchIndLoop;
         std::vector<float> pointSearchSqDisLoop;
-        RCLCPP_INFO(this->get_logger(),"########## 8 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 8 ##########");
         kdtreeHistoryKeyPoses->setInputCloud(copy_cloudKeyPoses3D);
         kdtreeHistoryKeyPoses->radiusSearch(copy_cloudKeyPoses3D->back(), historyKeyframeSearchRadius, pointSearchIndLoop, pointSearchSqDisLoop, 0);
         
@@ -729,7 +729,7 @@ public:
 
         // downsample near keyframes
         pcl::PointCloud<PointType>::Ptr cloud_temp(new pcl::PointCloud<PointType>());
-        RCLCPP_INFO(this->get_logger(),"########## 9 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 9 ##########");
         downSizeFilterICP.setInputCloud(nearKeyframes);
         downSizeFilterICP.filter(*cloud_temp);
         *nearKeyframes = *cloud_temp;
@@ -883,7 +883,7 @@ public:
         std::vector<float> pointSearchSqDis;
 
         // extract all the nearby key poses and downsample them
-        RCLCPP_INFO(this->get_logger(),"########## 10 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 10 ##########");
         kdtreeSurroundingKeyPoses->setInputCloud(cloudKeyPoses3D); // create kd-tree
         kdtreeSurroundingKeyPoses->radiusSearch(cloudKeyPoses3D->back(), (double)surroundingKeyframeSearchRadius, pointSearchInd, pointSearchSqDis);
         for (int i = 0; i < (int)pointSearchInd.size(); ++i)
@@ -891,7 +891,7 @@ public:
             int id = pointSearchInd[i];
             surroundingKeyPoses->push_back(cloudKeyPoses3D->points[id]);
         }
-        RCLCPP_INFO(this->get_logger(),"########## 11 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 11 ##########");
         downSizeFilterSurroundingKeyPoses.setInputCloud(surroundingKeyPoses);
         downSizeFilterSurroundingKeyPoses.filter(*surroundingKeyPosesDS);
         for(auto& pt : surroundingKeyPosesDS->points)
@@ -941,12 +941,12 @@ public:
         }
 
         // Downsample the surrounding corner key frames (or map)
-        RCLCPP_INFO(this->get_logger(),"########## 12 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 12 ##########");
         downSizeFilterCorner.setInputCloud(laserCloudCornerFromMap);
         downSizeFilterCorner.filter(*laserCloudCornerFromMapDS);
         laserCloudCornerFromMapDSNum = laserCloudCornerFromMapDS->size();
         // Downsample the surrounding surf key frames (or map)
-        RCLCPP_INFO(this->get_logger(),"########## 13 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 13 ##########");
         downSizeFilterSurf.setInputCloud(laserCloudSurfFromMap);
         downSizeFilterSurf.filter(*laserCloudSurfFromMapDS);
         laserCloudSurfFromMapDSNum = laserCloudSurfFromMapDS->size();
@@ -975,13 +975,13 @@ public:
     {
         // Downsample cloud from current scan
         laserCloudCornerLastDS->clear();
-        RCLCPP_INFO(this->get_logger(),"########## 14 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 14 ##########");
         downSizeFilterCorner.setInputCloud(laserCloudCornerLast);
         downSizeFilterCorner.filter(*laserCloudCornerLastDS);
         laserCloudCornerLastDSNum = laserCloudCornerLastDS->size();
 
         laserCloudSurfLastDS->clear();
-        RCLCPP_INFO(this->get_logger(),"########## 15 ##########");
+        // RCLCPP_INFO(this->get_logger(),"########## 15 ##########");
         downSizeFilterSurf.setInputCloud(laserCloudSurfLast);
         downSizeFilterSurf.filter(*laserCloudSurfLastDS);
         laserCloudSurfLastDSNum = laserCloudSurfLastDS->size();
@@ -1308,9 +1308,9 @@ public:
 
         if (laserCloudCornerLastDSNum > edgeFeatureMinValidNum && laserCloudSurfLastDSNum > surfFeatureMinValidNum)
         {
-            RCLCPP_INFO(this->get_logger(),"########## 16 ##########");
+            // RCLCPP_INFO(this->get_logger(),"########## 16 ##########");
             kdtreeCornerFromMap->setInputCloud(laserCloudCornerFromMapDS);
-            RCLCPP_INFO(this->get_logger(),"########## 17 ##########");
+            // RCLCPP_INFO(this->get_logger(),"########## 17 ##########");
             kdtreeSurfFromMap->setInputCloud(laserCloudSurfFromMapDS);
 
             for (int iterCount = 0; iterCount < 30; iterCount++)
@@ -1784,7 +1784,7 @@ int main(int argc, char** argv)
     auto MO = std::make_shared<mapOptimization>(options);
     exec.add_node(MO);
 
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\033[1;32m----> Map Optimization Started.\033[0m");
+    // RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\033[1;32m----> Map Optimization Started.\033[0m");
 
     std::thread loopthread(&mapOptimization::loopClosureThread, MO);
     std::thread visualizeMapThread(&mapOptimization::visualizeGlobalMapThread, MO);

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="sentry_description">
+  <link name="base_link"> </link>
+  <link name="yaw_link"> </link>
+  <link name="chassis_link"> </link>
+  <link name="imu_link"> </link>
+  <link name="lidar_link"> </link>
+
+  <!-- base_joint -->
+  <joint
+    name="base_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent  
+      link="chassis_link" />
+    <child
+      link="base_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+
+  <!-- yaw_joint -->
+  <joint
+    name="yaw_joint"
+    type="fixed">
+    <origin
+      xyz="0.0 0.0 0.0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="yaw_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+  <!-- lidar_joint -->
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0.0765 -0.1435 0.14259"
+      rpy="0 0 0" />
+    <parent
+      link="yaw_link" />
+    <child
+      link="lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <!-- imu_joint -->
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="0.0 0.0 0.0"
+      rpy="0 0 0" />
+    <parent
+      link="lidar_link" />
+    <child
+      link="imu_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+
+
+</robot>
